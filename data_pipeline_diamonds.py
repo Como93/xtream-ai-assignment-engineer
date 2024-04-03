@@ -9,18 +9,26 @@ from regressor_diamonds import train_linear_regression, train_random_forest
 
 CSV_FILE = "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/diamonds.csv"
 
+# class GetDiamondsFromApi(luigi.Task):
+#     def output(self):
+#         return luigi.LocalTarget("./datasets/diamonds/diamonds_from_github.csv")
+    
+#     def run(self):
+#         download = requests.get(CSV_FILE)
+#         decoded_content = download.content.decode('utf-8')
+#         cr = csv.reader(decoded_content.splitlines(), delimiter=',')
+#         with self.output().open("w") as f:
+#             writer = csv.writer(f)
+#             writer.writerows(cr)
+#             f.close()
+
 class GetDiamondsFromApi(luigi.Task):
     def output(self):
         return luigi.LocalTarget("./datasets/diamonds/diamonds_from_github.csv")
     
     def run(self):
-        download = requests.get(CSV_FILE)
-        decoded_content = download.content.decode('utf-8')
-        cr = csv.reader(decoded_content.splitlines(), delimiter=',')
-        with self.output().open("w") as f:
-            writer = csv.writer(f)
-            writer.writerows(cr)
-            f.close()
+        csv_from_api = pd.read_csv("./datasets/diamonds/diamonds_from_github/diamonds_for_training.csv")
+        csv_from_api.to_csv(self.output().path, index=False)
             
 class GetDiamondsFromAssignment(luigi.Task):
     def output(self):
