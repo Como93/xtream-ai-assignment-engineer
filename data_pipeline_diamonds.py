@@ -3,6 +3,8 @@ import requests
 import pandas as pd
 import csv
 from data_preprocessing_diamonds import DataPrepocessing
+import pickle
+from regressor_diamonds import train_linear_regression, train_random_forest
 
 
 CSV_FILE = "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/diamonds.csv"
@@ -53,6 +55,31 @@ class DiamondsDataPreparation(luigi.Task):
     
     def output(self):
         return luigi.LocalTarget("./datasets/diamonds/diamonds_training.csv")
+    
+class DiamondsTrainingPhaseLinearRegression(luigi.Task):
+    def requires(self):
+        return DiamondsDataPreparation()
+    
+    def run(self):
+        linear_regression_model = train_linear_regression(pd.read_csv(DiamondsDataPreparation().output().path))
+        with open(self.output().path, 'wb') as f:
+            pickle.dump(linear_regression_model,f )
+        
+    def output(self):
+        return luigi.LocalTarget("./datasets/diamonds/linear_model_regression.pkl") 
+
+class DiamondsTrainingPhaseRandomForestRegression(luigi.Task):
+    def requires(self):
+        return DiamondsDataPreparation()
+    
+    def run(self):
+        random_forest_model = train_linear_regression(pd.read_csv(DiamondsDataPreparation().output().path))
+        with open(self.output().path, 'wb') as f:
+            pickle.dump(random_forest_model,f )
+        
+    def output(self):
+        return luigi.LocalTarget("./datasets/diamonds/random_forest_regression.pkl") 
+
 
 if __name__ == '__main__':
-    luigi.build([DiamondsDataPreparation()])
+    luigi.build([DiamondsTrainingPhaseLinearRegression(),DiamondsTrainingPhaseRandomForestRegression()])
