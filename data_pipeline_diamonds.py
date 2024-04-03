@@ -1,14 +1,15 @@
 import luigi
 import requests
-import pandas
+import pandas as pd
 import csv
+from data_preprocessing_diamonds import DataPrepocessing
 
 
 CSV_FILE = "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/diamonds.csv"
 
-class DiamondsTask(luigi.Task):
+class GetDiamondsFromApi(luigi.Task):
     def output(self):
-        return luigi.LocalTarget("diamonds_with_pipeline.csv")
+        return luigi.LocalTarget("./datasets/diamonds/diamonds_from_github.csv")
     
     def run(self):
         download = requests.get(CSV_FILE)
@@ -18,6 +19,40 @@ class DiamondsTask(luigi.Task):
             writer = csv.writer(f)
             writer.writerows(cr)
             f.close()
+            
+class GetDiamondsFromAssignment(luigi.Task):
+    def output(self):
+        return luigi.LocalTarget("./datasets/diamonds/diamonds_from_assignment.csv")
+    
+    def run(self):
+        csv_from_assignment = pd.read_csv("./datasets/diamonds/diamonds.csv")
+        csv_from_assignment.to_csv(self.output().path, index=False)
+
+class DiamondsAggregation(luigi.Task):
+    def requires(self):
+        yield GetDiamondsFromApi()
+        yield GetDiamondsFromAssignment()
+    
+    def run(self):
+        diamonds_from_api = pd.read_csv(GetDiamondsFromApi().output().path)
+        diamonds_from_assignment = pd.read_csv(GetDiamondsFromAssignment().output().path)
+        diamonds_aggregated = pd.concat([diamonds_from_api,diamonds_from_assignment])
+        diamonds_aggregated.to_csv(self.output().path)
+    
+    def output(self):
+        return luigi.LocalTarget("./datasets/diamonds/diamonds_aggregated.csv")
+
+class DiamondsDataPreparation(luigi.Task):
+    def requires(self):
+        return DiamondsAggregation()
+    
+    def run(self):
+        dp = DataPrepocessing(pd.read_csv(DiamondsAggregation().output().path))
+        diamonds_training = dp.preprocessing()
+        diamonds_training.to_csv(self.output().path, index=False)
+    
+    def output(self):
+        return luigi.LocalTarget("./datasets/diamonds/diamonds_training.csv")
 
 if __name__ == '__main__':
-    luigi.build([DiamondsTask()],local_scheduler=True)
+    luigi.build([DiamondsDataPreparation()])
