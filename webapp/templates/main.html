@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Reviews Sentiment Analysis</title>
+    <link
+      rel="shortcut icon"
+      type="image/jpg"
+      href="https://www.bolajiayodeji.com/favicon.png"
+    />
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    
+  </head>
+  <body class="font-mono">
+    <div class="flex items-center justify-center h-screen">
+        <div class="p-12 max-w-lg bg-white rounded-lg overflow-hidden shadow-lg">
+            <div class="font-bold text-xl mb-2">
+                Prediction Diamonds Price
+              </div>
+              <hr />
+              <br />
+
+              <form id="prediction-form" action="{{ url_for('main') }}" method="POST">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="cut">
+                    Select a cut:
+                </label>
+                <select
+                    id="cut"
+                    name="cut"
+                    class="
+                    block
+                    appearance-none
+                    w-full
+                    bg-white
+                    border border-gray-400
+                    hover:border-gray-500
+                    px-4
+                    py-2
+                    pr-8
+                    rounded
+                    shadow
+                    leading-tight
+                    focus:outline-none focus:shadow-outline
+                    "
+                    required
+                >
+                    <option></option>
+                    <option value="Ideal">Ideal</option>
+                    <option value="Premium">Premium</option>
+                    <option value="Very Good">Very Good</option>
+                    <option value="Good">Good</option>
+                    <option value="Fair">Fair</option>
+                </select>
+
+                <br />
+
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="color">
+                    Select a color:
+                </label>
+                <select
+                    id="color"
+                    name="color"
+                    class="
+                    block
+                    appearance-none
+                    w-full
+                    bg-white
+                    border border-gray-400
+                    hover:border-gray-500
+                    px-4
+                    py-2
+                    pr-8
+                    rounded
+                    shadow
+                    leading-tight
+                    focus:outline-none focus:shadow-outline
+                    "
+                    required
+                >
+                    <option></option>
+                    <option value="G">G</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="H">H</option>
+                    <option value="D">D</option>
+                    <option value="D">I</option>
+                    <option value="D">J</option>
+                </select>
+
+                <br />
+
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="clarity">
+                    Select a clarity:
+                </label>
+                <select
+                    id="clarity"
+                    name="clarity"
+                    class="
+                    block
+                    appearance-none
+                    w-full
+                    bg-white
+                    border border-gray-400
+                    hover:border-gray-500
+                    px-4
+                    py-2
+                    pr-8
+                    rounded
+                    shadow
+                    leading-tight
+                    focus:outline-none focus:shadow-outline
+                    "
+                    required
+                >
+                    <option></option>
+                    <option value="SI1">SI1</option>
+                    <option value="VS2">VS2</option>
+                    <option value="SI2">SI2</option>
+                    <option value="VS1">VS1</option>
+                    <option value="VVS2">VVS2</option>
+                    <option value="VVS1">VVS1</option>
+                    <option value="IF">IF</option>
+                    <option value="I1">I1</option>
+                </select>
+                
+                <br />
+
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="carat"
+                >
+                    Enter carat:
+                </label>
+                <input
+                    type="number"
+                    name="carat"
+                    id="carat"
+                    class="
+                    shadow
+                    appearance-none
+                    border
+                    rounded
+                    w-full
+                    py-2
+                    px-3
+                    text-gray-700
+                    leading-tight
+                    focus:outline-none focus:shadow-outline
+                    "
+                    step=".01"
+                    min="0.2"
+                    max="5.01"
+                    required
+                ></input>
+
+                <br />
+
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="x"
+                >
+                    Enter x:
+                </label>
+                <input
+                    type="number"
+                    name="x"
+                    id="x"
+                    class="
+                    shadow
+                    appearance-none
+                    border
+                    rounded
+                    w-full
+                    py-2
+                    px-3
+                    text-gray-700
+                    leading-tight
+                    focus:outline-none focus:shadow-outline
+                    "
+                    step=".01"
+                    min="0.1"
+                    max="10.74"
+                    required
+                ></input>
+
+                <br />
+
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="y"
+                >
+                    Enter y:
+                </label>
+                <input
+                    type="number"
+                    name="y"
+                    id="y"
+                    class="
+                    shadow
+                    appearance-none
+                    border
+                    rounded
+                    w-full
+                    py-2
+                    px-3
+                    text-gray-700
+                    leading-tight
+                    focus:outline-none focus:shadow-outline
+                    "
+                    step=".01"
+                    min="0.1"
+                    max="58.9"
+                    required
+                ></input>
+
+                <br />
+
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="z"
+                >
+                    Enter z:
+                </label>
+                <input
+                    type="number"
+                    name="z"
+                    id="z"
+                    class="
+                    shadow
+                    appearance-none
+                    border
+                    rounded
+                    w-full
+                    py-2
+                    px-3
+                    text-gray-700
+                    leading-tight
+                    focus:outline-none focus:shadow-outline
+                    "
+                    step=".01"
+                    min="0.1"
+                    max="31.8"
+                    required
+                ></input>
+
+                <br />
+
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="table"
+                >
+                    Enter table:
+                </label>
+                <input
+                    type="number"
+                    name="table"
+                    id="table"
+                    class="
+                    shadow
+                    appearance-none
+                    border
+                    rounded
+                    w-full
+                    py-2
+                    px-3
+                    text-gray-700
+                    leading-tight
+                    focus:outline-none focus:shadow-outline
+                    "
+                    step=".01"
+                    required
+                ></input>
+
+                <br />
+
+                <input
+                    type="submit"
+                    value="Submit"
+                    class="
+                    w-full
+                    bg-blue-500
+                    text-white
+                    font-bold
+                    mt-8
+                    p-4
+                    rounded
+                    focus:outline-none focus:shadow-outline
+                    "
+                />
+
+              </form>
+
+
+              <div class="result mt-12" align="center">
+                <p class="text-blue-700 text-lg font-bold border rounded mt-4">
+                    Price: {{ result }}
+                  </p>
+              </div>
+        </div>
+    </div>   
+  </body>
+</html>
