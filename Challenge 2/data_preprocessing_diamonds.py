@@ -5,7 +5,7 @@ class DataPrepocessing():
         self.diamonds = diamonds
     
     def preprocessing(self):
-        diamondsReturn = self.diamonds.drop(columns=['Unnamed: 0'], axis=1)
+        diamondsReturn = self.diamonds
         diamondsReturn.drop_duplicates(inplace=True)
         diamondsReturn = self.drop_dimentionless_diamonds(diamondsReturn)
         diamondsReturn = self.drop_priceless_diamonds(diamondsReturn)
