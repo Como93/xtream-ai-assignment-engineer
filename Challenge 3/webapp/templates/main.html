@@ -9,7 +9,7 @@
     
   </head>
   <body class="font-mono">
-    <div class="flex items-center justify-center h-screen">
+    <div class="flex items-center justify-center">
         <div class="p-12 max-w-lg bg-white rounded-lg overflow-hidden shadow-lg">
             <div class="font-bold text-xl mb-2">
                 Prediction Diamonds Price
@@ -126,7 +126,7 @@
                     class="block text-gray-700 text-sm font-bold mb-2"
                     for="carat"
                 >
-                    Enter carat:
+                    Enter carat: ( Values between 0.2 and 5.01 ) 
                 </label>
                 <input
                     type="number"
@@ -156,7 +156,7 @@
                     class="block text-gray-700 text-sm font-bold mb-2"
                     for="x"
                 >
-                    Enter x:
+                    Enter x: ( Values between 0.1 and 10.74 ) 
                 </label>
                 <input
                     type="number"
@@ -186,7 +186,7 @@
                     class="block text-gray-700 text-sm font-bold mb-2"
                     for="y"
                 >
-                    Enter y:
+                    Enter y: ( Values between 0.1 and 58.9 ) 
                 </label>
                 <input
                     type="number"
@@ -216,7 +216,7 @@
                     class="block text-gray-700 text-sm font-bold mb-2"
                     for="z"
                 >
-                    Enter z:
+                    Enter z: ( Values between 0.1 and 31.8 ) 
                 </label>
                 <input
                     type="number"
@@ -246,7 +246,7 @@
                     class="block text-gray-700 text-sm font-bold mb-2"
                     for="table"
                 >
-                    Enter table:
+                    Enter table: ( Values between 43.0 and 95.0 ) 
                 </label>
                 <input
                     type="number"
@@ -265,6 +265,8 @@
                     focus:outline-none focus:shadow-outline
                     "
                     step=".01"
+                    min="43.0"
+                    max="95.0"
                     required
                 ></input>
 

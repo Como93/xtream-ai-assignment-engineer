@@ -23,7 +23,6 @@ def result():
         to_form_dict["y"] = float(to_form_dict["y"])
         to_form_dict["z"] = float(to_form_dict["z"])
         to_form_dict["table"] = float(to_form_dict["table"])
-        to_form_dict["table"] = ((2 * to_form_dict["table"]) / (to_form_dict["x"] + to_form_dict["y"])) * 100
         to_form_dict["table"] = round(to_form_dict["table"],1)
         to_form_dict['depth'] = ((2 * to_form_dict['z']) / (to_form_dict['x'] + to_form_dict['y'])) * 100
         to_form_dict["depth"] = round(to_form_dict["depth"],1)
@@ -42,8 +41,8 @@ def result():
 
         predict_df = pd.DataFrame(predict_dict,index=[0])
 
-        loaded_model = pickle.load(open("random_forest_regression.pkl", "rb"))
+        loaded_model = pickle.load(open("../../Challenge 2/decision_tree_regression.pkl", "rb"))
         price = loaded_model.predict(predict_df)
-        return render_template("result.html", price = price[0])
+        return render_template("result.html", price = round(price[0],2))
 if __name__ == '__main__':
     app.run()
