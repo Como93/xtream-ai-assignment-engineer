@@ -82,4 +82,57 @@ So, ready to add some sparkle to this challenge? Let's make these diamonds shine
 ---
 
 ## How to run
-Please fill this section as part of the assignment.
+
+#### Challenge 1
+Just run the notebook and see which model performs better. For Challenge 2 and Challenge 3, I will use the best prediction model of this Challenge.
+
+#### Challenge 2
+For building pipeline, I use the framework "Luigi".
+
+##### Prerequisities 
+
+Use the package manager pip to install luigi.
+
+```bash
+pip install luigi
+```
+
+Into the Challenge 2 folder, run command line
+
+```bash
+$env:PYTHONPATH='.' 
+```
+
+if not "ImportError: no module named ..." is shown
+
+Then, run the pipeline 
+
+```bash
+luigi --module data_pipeline_diamonds DiamondsTrainingPhase --local-scheduler
+```
+#### Challenge 3
+
+For webapp, I use Flask.
+
+##### Prerequisities
+
+Use the package manager pip to install flask.
+
+```bash
+pip install flask
+```
+For running the web application
+
+```bash
+flask run
+```
+
+and go to the browser -> http://localhost:5000/
+
+You will see the form where you can put the data for the prediction. 
+Only "depth" field is not present because it is calculated by formula: [z / mean(x,y)] * 100 because calculating the percentage 
+
+#### Challenge 4
+
+Read the notebook
+
