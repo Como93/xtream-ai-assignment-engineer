@@ -41,7 +41,7 @@ def result():
 
         predict_df = pd.DataFrame(predict_dict,index=[0])
 
-        loaded_model = pickle.load(open("../../Challenge 2/decision_tree_regression.pkl", "rb"))
+        loaded_model = pickle.load(open("../../Challenge 2/best_model_regression.pkl", "rb"))
         price = loaded_model.predict(predict_df)
         return render_template("result.html", price = round(price[0],2))
 if __name__ == '__main__':

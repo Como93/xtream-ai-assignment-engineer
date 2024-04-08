@@ -4,7 +4,7 @@ import pandas as pd
 import csv
 from data_preprocessing_diamonds import DataPrepocessing
 import pickle
-from regressor_diamonds import train_linear_regression, train_random_forest, train_decision_tree
+from regressor_diamonds import train_decision_tree
 
 
 CSV_FILE = "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/diamonds.csv"
@@ -63,9 +63,9 @@ class DiamondsTrainingPhase(luigi.Task):
         return DiamondsDataPreparation()
     
     def run(self):
-        decision_tree_model, _ = train_decision_tree(pd.read_csv(DiamondsDataPreparation().output().path))
+        decision_tree_model = train_decision_tree(pd.read_csv(DiamondsDataPreparation().output().path))
         with open(self.output().path, 'wb') as f:
             pickle.dump(decision_tree_model,f )
         
     def output(self):
-        return luigi.LocalTarget("./decision_tree_regression.pkl") 
+        return luigi.LocalTarget("./best_model_regression.pkl") 
